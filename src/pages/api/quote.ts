@@ -9,7 +9,9 @@ type Data = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const { data, status } = await axios.get("https://api.quotable.io/random");
+  const { data, status } = await axios.get(
+    "https://api.quotable.io/random?minLength=180",
+  );
 
   return res.status(status).json({ quote: data });
 }

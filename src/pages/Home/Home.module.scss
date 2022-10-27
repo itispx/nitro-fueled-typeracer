@@ -1,4 +1,9 @@
 .home-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.typeracer-margin-top {
+  margin-top: 45vh;
 }

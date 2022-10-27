@@ -25,6 +25,7 @@ const Home: NextPage = () => {
   return (
     <>
       <div className={styles["home-container"]}>
+        <div className={styles["typeracer-margin-top"]} />
         {quote && <Typeracer quote={quote} />}
       </div>
     </>
