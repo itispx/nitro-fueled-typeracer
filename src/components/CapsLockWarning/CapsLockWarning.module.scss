@@ -1,0 +1,14 @@
+@import "../../styles/colors";
+
+.caps-lock-warning-container {
+  position: absolute;
+  margin: 350px 25px 25px;
+  padding: 25px 60px;
+  border-radius: 15px;
+  background-color: $accent;
+
+  span {
+    font-weight: bolder;
+    color: $primary;
+  }
+}

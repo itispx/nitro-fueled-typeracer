@@ -1,29 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Typeracer.module.scss";
-
-import useKeydown from "../../hooks/useKeydown";
 
 import IQuote from "../../interfaces/quote";
 
 interface Props {
   quote: IQuote;
+  typed: string;
 }
 
-const Typeracer: React.FC<Props> = ({ quote }) => {
-  const [typed, setTyped] = useState("");
-
-  useKeydown((e) => {
-    if (e.key.length === 1) {
-      // Key pressed, add to typed
-      setTyped((prev) => prev.concat(e.key));
-    } else if (e.key === "Backspace") {
-      // Backspace pressed, remove the last char from typed
-      setTyped((prev) => prev.slice(0, -1));
-    } else if (e.key === "Tab") {
-      // Highlight restart
-    }
-  }, []);
-
+const Typeracer: React.FC<Props> = ({ quote, typed }) => {
   return (
     <div className={styles["typeracer-container"]}>
       <p className={styles["quote"]}>
