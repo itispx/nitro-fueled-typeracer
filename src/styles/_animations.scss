@@ -1,0 +1,25 @@
+@keyframes fade-in-animation {
+  0% {
+    opacity: var(--fadeStart);
+  }
+  100% {
+    opacity: var(--fadeEnd);
+  }
+}
+
+@keyframes fade-out-animation {
+  0% {
+    opacity: var(--fadeStart);
+  }
+  100% {
+    opacity: var(--fadeEnd);
+  }
+}
+
+@mixin fade-in($duration) {
+  animation: fade-in-animation $duration ease-in-out both;
+}
+
+@mixin fade-out($duration) {
+  animation: fade-out-animation $duration ease-in-out both;
+}

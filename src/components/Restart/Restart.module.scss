@@ -1,11 +1,15 @@
 @import "../../styles/variables";
 @import "../../styles/colors";
+@import "../../styles/animations";
+
+.restart-wrapper {
+  margin: 15px;
+}
 
 .restart-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 15px;
   padding: 25px;
   border-radius: $border-radius;
   background-color: $bubble;
@@ -16,7 +20,48 @@
     color: $primary;
   }
 
-  &.focused {
-    opacity: 1;
+  &.focused-in {
+    --fadeStart: 0.1;
+    --fadeEnd: 1;
+    @include fade-in(0.3s);
+  }
+  &.focused-out {
+    --fadeStart: 1;
+    --fadeEnd: 0.1;
+    @include fade-out(0.3s);
+  }
+}
+
+.restart-bubble-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+  opacity: 0;
+
+  .up-point {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid $dark;
+  }
+
+  .restart-bubble {
+    padding: 10px 30px;
+    border-radius: $border-radius / 2;
+    color: $bubble;
+    background-color: $dark;
+  }
+
+  &.animation-in {
+    --fadeStart: 0;
+    --fadeEnd: 1;
+    @include fade-in(0.3s);
+  }
+
+  &.animation-out {
+    --fadeStart: 1;
+    --fadeEnd: 0;
+    @include fade-out(0.3s);
   }
 }

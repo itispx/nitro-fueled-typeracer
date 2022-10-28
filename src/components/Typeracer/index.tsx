@@ -9,8 +9,8 @@ import IQuote from "../../interfaces/quote";
 interface Props {
   quote: IQuote;
   typed: string;
-  isCapsLockOn: boolean;
-  isRestartFocused: boolean;
+  isCapsLockOn: boolean | null;
+  isRestartFocused: boolean | null;
 }
 
 const Typeracer: React.FC<Props> = ({ quote, typed, isCapsLockOn, isRestartFocused }) => {

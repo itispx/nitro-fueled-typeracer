@@ -19,12 +19,14 @@ const Home: NextPage = () => {
 
   function refreshQuote() {
     refetch();
+    setTyped("");
+    setIsRestartFocused(false);
   }
 
   const [typed, setTyped] = useState("");
 
-  const [isCapsLockOn, setIsCapsLockOn] = useState(false);
-  const [isRestartFocused, setIsRestartFocused] = useState(false);
+  const [isCapsLockOn, setIsCapsLockOn] = useState<boolean | null>(null);
+  const [isRestartFocused, setIsRestartFocused] = useState<boolean | null>(null);
 
   useKeydown((e) => {
     // Can't use a switch statement here because switch statements use uses strict comparison (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch#description)
@@ -44,13 +46,13 @@ const Home: NextPage = () => {
 
       // Highlight restart
       setIsRestartFocused((prev) => !prev);
+    } else if (e.key === "Enter") {
+      if (isRestartFocused) refreshQuote();
     } else if (e.key === "CapsLock") {
       e.preventDefault();
 
       // Show caps lock warning
       setIsCapsLockOn((prev) => !prev);
-    } else if (e.key === "Enter") {
-      if (isRestartFocused) refreshQuote();
     }
   }, []);
 

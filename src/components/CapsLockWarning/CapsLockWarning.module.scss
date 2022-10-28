@@ -1,11 +1,13 @@
 @import "../../styles/variables";
 @import "../../styles/colors";
+@import "../../styles/animations";
 
 .caps-lock-warning-container {
   margin: 15px;
   padding: 25px 60px;
   border-radius: $border-radius;
   background-color: $accent;
+  opacity: 0;
 
   span {
     font-weight: bolder;
@@ -13,10 +15,14 @@
   }
 
   &.hidden {
-    visibility: hidden;
+    --fadeStart: 1;
+    --fadeEnd: 0;
+    @include fade-in(0.25s);
   }
 
   &.visible {
-    visibility: visible;
+    --fadeStart: 0;
+    --fadeEnd: 1;
+    @include fade-out(0.25s);
   }
 }
