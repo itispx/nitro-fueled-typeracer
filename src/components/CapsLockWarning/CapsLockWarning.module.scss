@@ -1,9 +1,10 @@
+@import "../../styles/variables";
 @import "../../styles/colors";
 
 .caps-lock-warning-container {
   margin: 15px;
   padding: 25px 60px;
-  border-radius: 15px;
+  border-radius: $border-radius;
   background-color: $accent;
 
   span {

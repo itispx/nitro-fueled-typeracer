@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Typeracer.module.scss";
 
 import CapsLockWarning from "../../components/CapsLockWarning";
+import Restart from "../../components/Restart";
 
 import IQuote from "../../interfaces/quote";
 
@@ -9,9 +10,10 @@ interface Props {
   quote: IQuote;
   typed: string;
   isCapsLockOn: boolean;
+  isRestartFocused: boolean;
 }
 
-const Typeracer: React.FC<Props> = ({ quote, typed, isCapsLockOn }) => {
+const Typeracer: React.FC<Props> = ({ quote, typed, isCapsLockOn, isRestartFocused }) => {
   return (
     <>
       <CapsLockWarning active={isCapsLockOn} />
@@ -44,6 +46,7 @@ const Typeracer: React.FC<Props> = ({ quote, typed, isCapsLockOn }) => {
           })}
         </p>
       </div>
+      <Restart focused={isRestartFocused} />
     </>
   );
 };
