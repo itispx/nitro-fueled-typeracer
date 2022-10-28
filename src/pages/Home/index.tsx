@@ -59,11 +59,13 @@ const Home: NextPage = () => {
   return (
     <>
       <div className={styles["home-container"]}>
-        <div className={styles["typeracer-margin-top"]} />
         {status === "loading" || isFetching ? (
-          <InfinitySpin width="200" color="#7f7b82" />
+          <div className={styles["loading"]}>
+            <InfinitySpin width="200" color="#7f7b82" />
+          </div>
         ) : (
           <>
+            <div className={styles["typeracer-margin-top"]} />
             {status === "error" && (
               <div className={styles["error"]}>error fetching data</div>
             )}
