@@ -40,8 +40,15 @@ const Typeracer: React.FC<Props> = ({ quote }) => {
           }
 
           return (
-            <span key={index} className={styles[className]}>
-              {k === " " && className === "incorrect" ? "_" : k}
+            <span
+              key={index}
+              className={
+                k === " " && className === "incorrect"
+                  ? styles["incorrect-empty"]
+                  : styles[className]
+              }
+            >
+              {k}
             </span>
           );
         })}
