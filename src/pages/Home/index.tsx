@@ -10,7 +10,6 @@ import { InfinitySpin } from "react-loader-spinner";
 
 import useKeydown from "../../hooks/useKeydown";
 
-import CapsLockWarning from "../../components/CapsLockWarning";
 import Typeracer from "../../components/Typeracer";
 
 const Home: NextPage = () => {
@@ -47,10 +46,11 @@ const Home: NextPage = () => {
     <>
       <div className={styles["home-container"]}>
         <div className={styles["typeracer-margin-top"]} />
-        <CapsLockWarning active={isCapsLockOn} />
         {status === "loading" && <InfinitySpin width="200" color="#7f7b82" />}
         {status === "error" && <div className={styles["error"]}>error fetching data</div>}
-        {status === "success" && <Typeracer quote={data} typed={typed} />}
+        {status === "success" && (
+          <Typeracer quote={data} typed={typed} isCapsLockOn={isCapsLockOn} />
+        )}
       </div>
     </>
   );
