@@ -21,7 +21,7 @@ const CapsLockWarning: React.FC<Props> = ({ active }) => {
           : null
       }`}
     >
-      <FiLock color="#1e1e24" />
+      <FiLock className={styles["icon"]} />
       <span> Caps Lock</span>
     </div>
   );

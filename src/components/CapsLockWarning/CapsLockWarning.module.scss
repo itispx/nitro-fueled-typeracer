@@ -3,13 +3,16 @@
 @import "../../styles/animations";
 
 .caps-lock-warning-container {
+  display: flex;
+  align-items: center;
   margin: 15px;
-  padding: 25px 60px;
+  padding: 25px 35px;
   border-radius: $border-radius;
   background-color: $accent;
   opacity: 0;
 
   span {
+    margin-left: 10px;
     font-weight: bolder;
     color: $primary;
   }
@@ -24,5 +27,10 @@
     --fadeStart: 0;
     --fadeEnd: 1;
     @include fade-out(0.25s);
+  }
+
+  .icon {
+    font-size: 25px;
+    color: $primary;
   }
 }
