@@ -8,6 +8,7 @@ interface Props {
 }
 
 const CapsLockWarning: React.FC<Props> = ({ active }) => {
+  console.log({ active });
   return (
     <div
       className={`${styles["caps-lock-warning-container"]} ${

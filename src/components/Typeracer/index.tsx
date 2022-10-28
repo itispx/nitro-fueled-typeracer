@@ -24,10 +24,8 @@ const Typeracer: React.FC<Props> = ({ quote, typed, isCapsLockOn, isRestartFocus
 
             if (!typed[index]) {
             } else if (typed[index] === k) {
-              console.log("correct");
               className = "correct";
             } else if (typed[index] !== k) {
-              console.log("incorrect");
               className = "incorrect";
             }
 

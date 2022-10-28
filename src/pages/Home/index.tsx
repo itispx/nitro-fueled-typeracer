@@ -20,7 +20,8 @@ const Home: NextPage = () => {
   function refreshQuote() {
     refetch();
     setTyped("");
-    setIsRestartFocused(false);
+    setIsRestartFocused(null);
+    setIsCapsLockOn(null);
   }
 
   const [typed, setTyped] = useState("");
