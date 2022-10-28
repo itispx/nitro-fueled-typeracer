@@ -1,3 +1,5 @@
+@import "../../styles/colors";
+
 .home-container {
   display: flex;
   flex-direction: column;
@@ -6,4 +8,8 @@
 
 .typeracer-margin-top {
   margin-top: 45vh;
+}
+
+.error {
+  color: $bubble;
 }

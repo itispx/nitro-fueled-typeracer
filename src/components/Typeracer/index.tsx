@@ -14,9 +14,13 @@ const Typeracer: React.FC<Props> = ({ quote }) => {
 
   useKeydown((e) => {
     if (e.key.length === 1) {
+      // Key pressed, add to typed
       setTyped((prev) => prev.concat(e.key));
     } else if (e.key === "Backspace") {
+      // Backspace pressed, remove the last char from typed
       setTyped((prev) => prev.slice(0, -1));
+    } else if (e.key === "Tab") {
+      // Highlight restart
     }
   }, []);
 
