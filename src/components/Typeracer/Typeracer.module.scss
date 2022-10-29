@@ -1,5 +1,6 @@
 @import "../../styles/variables";
 @import "../../styles/colors";
+@import "../../styles/animations";
 
 .typeracer-container {
   margin: 0 50px 0;
@@ -7,6 +8,24 @@
   max-width: 1190px;
   border-radius: $border-radius;
   background-color: $bubble;
+
+  &.focus-in {
+    // --scaleStart: 0.9;
+    // --scaleEnd: 1;
+    // @include scale-up(0.3s);
+    --blurStart: 3;
+    --blurEnd: 0;
+    @include blur(0.3s);
+  }
+
+  &.focus-out {
+    // --scaleStart: 1;
+    // --scaleEnd: 0.9;
+    // @include scale-down(0.3s);
+    --blurStart: 0;
+    --blurEnd: 3;
+    @include blur(0.3s);
+  }
 }
 
 .quote {

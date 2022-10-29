@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Home.module.scss";
 
 import { useQuery } from "react-query";
@@ -36,12 +36,12 @@ const Home: NextPage = () => {
 
     if (e.key.length === 1) {
       // Key pressed, add to typed
-      setTyped((prev) => prev.concat(e.key));
+      isGameFocused && setTyped((prev) => prev.concat(e.key));
     } else if (e.key === "Backspace") {
       e.preventDefault();
 
       // Backspace pressed, remove the last char from typed
-      setTyped((prev) => prev.slice(0, -1));
+      isGameFocused && setTyped((prev) => prev.slice(0, -1));
     } else if (e.key === "Tab") {
       e.preventDefault();
 
@@ -56,6 +56,11 @@ const Home: NextPage = () => {
       setIsCapsLockOn((prev) => !prev);
     }
   }, []);
+
+  // Take focus out of game if restart is focused
+  useEffect(() => {
+    setIsGameFocused(!isRestartFocused);
+  }, [isRestartFocused]);
 
   return (
     <>
@@ -74,6 +79,7 @@ const Home: NextPage = () => {
               <Typeracer
                 quote={data}
                 typed={typed}
+                isGameFocused={isGameFocused}
                 isCapsLockOn={isCapsLockOn}
                 isRestartFocused={isRestartFocused}
               />

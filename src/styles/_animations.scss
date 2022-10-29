@@ -17,9 +17,48 @@
 }
 
 @mixin fade-in($duration) {
-  animation: fade-in-animation $duration ease-in-out both;
+  animation: fade-in-animation $duration ease-out forwards;
 }
 
 @mixin fade-out($duration) {
-  animation: fade-out-animation $duration ease-in-out both;
+  animation: fade-out-animation $duration ease-out forwards;
+}
+
+@keyframes scale-up-center-animation {
+  0% {
+    transform: scale(var(--scaleStart));
+  }
+  100% {
+    transform: scale(var(--scaleEnd));
+  }
+}
+
+@keyframes scale-down-center-animation {
+  0% {
+    transform: scale(var(--scaleStart));
+  }
+  100% {
+    transform: scale(var(--scaleEnd));
+  }
+}
+
+@mixin scale-up($duration) {
+  animation: scale-up-center-animation $duration ease-out forwards;
+}
+
+@mixin scale-down($duration) {
+  animation: scale-down-center-animation $duration ease-out forwards;
+}
+
+@keyframes blur-animation {
+  0% {
+    filter: blur(calc(var(--blurStart) * 1px));
+  }
+  100% {
+    filter: blur(calc(var(--blurEnd) * 1px));
+  }
+}
+
+@mixin blur($duration) {
+  animation: blur-animation $duration linear both;
 }
