@@ -11,7 +11,7 @@ const Restart: React.FC<Props> = ({ focused }) => {
   return (
     <div className={styles["restart-wrapper"]}>
       <div
-        className={`${styles["restart-container"]} ${
+        className={`${styles["restart-icon-container"]} ${
           // This prevents the animation to run when the page loads,
           // Initially the 'focused' state is null, so it won't load the focused-in or the focused-out animation
           // Consequentially it will be either true or false applying the animations
@@ -24,6 +24,7 @@ const Restart: React.FC<Props> = ({ focused }) => {
       >
         <FiRefreshCcw className={styles["icon"]} />
       </div>
+
       <div
         className={`${styles["restart-bubble-container"]} ${
           typeof focused === "boolean"
