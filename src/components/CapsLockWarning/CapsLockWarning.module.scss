@@ -20,7 +20,7 @@
   &.hidden {
     --fadeStart: 1;
     --fadeEnd: 0;
-    @include fade-in(0.15 s);
+    @include fade-in(0.15s);
   }
 
   &.visible {
