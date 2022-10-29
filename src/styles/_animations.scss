@@ -50,7 +50,7 @@
   animation: scale-down-center-animation $duration ease-out forwards;
 }
 
-@keyframes blur-animation {
+@keyframes blur-in-animation {
   0% {
     filter: blur(calc(var(--blurStart) * 1px));
   }
@@ -59,6 +59,29 @@
   }
 }
 
-@mixin blur($duration) {
-  animation: blur-animation $duration linear both;
+@keyframes blur-out-animation {
+  0% {
+    filter: blur(calc(var(--blurStart) * 1px));
+  }
+  100% {
+    filter: blur(calc(var(--blurEnd) * 1px));
+  }
+}
+
+@mixin blur-in($duration) {
+  animation: blur-in-animation $duration linear both;
+}
+
+@mixin blur-out($duration) {
+  animation: blur-out-animation $duration linear both;
+}
+
+@mixin scale-up-and-blur-out($duration) {
+  animation: scale-down-center-animation $duration ease-out forwards,
+    blur-out-animation $duration linear both;
+}
+
+@mixin scale-down-and-blur-in($duration) {
+  animation: scale-up-center-animation $duration ease-out forwards,
+    blur-in-animation $duration linear both;
 }

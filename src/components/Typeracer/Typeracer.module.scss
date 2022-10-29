@@ -10,21 +10,19 @@
   background-color: $bubble;
 
   &.focus-in {
-    // --scaleStart: 0.9;
-    // --scaleEnd: 1;
-    // @include scale-up(0.3s);
+    --scaleStart: 0.95;
+    --scaleEnd: 1;
     --blurStart: 3;
     --blurEnd: 0;
-    @include blur(0.3s);
+    @include scale-up-and-blur-out(0.3s);
   }
 
   &.focus-out {
-    // --scaleStart: 1;
-    // --scaleEnd: 0.9;
-    // @include scale-down(0.3s);
+    --scaleStart: 1;
+    --scaleEnd: 0.95;
     --blurStart: 0;
     --blurEnd: 3;
-    @include blur(0.3s);
+    @include scale-down-and-blur-in(0.3s);
   }
 }
 
