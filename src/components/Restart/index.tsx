@@ -34,7 +34,7 @@ const Restart: React.FC<Props> = ({ focused }) => {
         }`}
       >
         <div className={styles["up-point"]} />
-        <div className={styles["restart-bubble"]}>restart test</div>
+        <span className={styles["restart-bubble-text"]}>restart test</span>
       </div>
     </div>
   );

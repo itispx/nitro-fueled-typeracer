@@ -20,13 +20,13 @@
   &.hidden {
     --fadeStart: 1;
     --fadeEnd: 0;
-    @include fade-in(0.25s);
+    @include fade-in(0.15 s);
   }
 
   &.visible {
     --fadeStart: 0;
     --fadeEnd: 1;
-    @include fade-out(0.25s);
+    @include fade-out(0.15s);
   }
 
   .icon {

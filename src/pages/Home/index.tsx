@@ -25,14 +25,14 @@ const Home: NextPage = () => {
   }
 
   const [typed, setTyped] = useState("");
-
+  const [isGameFocused, setIsGameFocused] = useState(true);
   const [isCapsLockOn, setIsCapsLockOn] = useState<boolean | null>(null);
   const [isRestartFocused, setIsRestartFocused] = useState<boolean | null>(null);
 
   useKeydown((e) => {
     // Can't use a switch statement here because switch statements use uses strict comparison (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch#description)
 
-    console.log(e.key);
+    // console.log(e.key);
 
     if (e.key.length === 1) {
       // Key pressed, add to typed
