@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Typeracer.module.scss";
 
+import { useQueryClient } from "react-query";
+
 import useGameStore from "../../stores/useGameStore";
 
 import CapsLockWarning from "../../components/CapsLockWarning";
@@ -8,15 +10,15 @@ import Restart from "../../components/Restart";
 
 import IQuote from "../../interfaces/quote";
 
-interface Props {
-  quote: IQuote;
-}
-
-const Typeracer: React.FC<Props> = ({ quote }) => {
+const Typeracer: React.FC = () => {
   const typed = useGameStore((state) => state.typed);
   const isGameFocused = useGameStore((state) => state.isGameFocused);
   const isCapsLockOn = useGameStore((state) => state.isCapsLockOn);
   const isRestartFocused = useGameStore((state) => state.isRestartFocused);
+
+  const queryClient = useQueryClient();
+
+  const quote = queryClient.getQueryData("quote") as IQuote;
 
   return (
     <>

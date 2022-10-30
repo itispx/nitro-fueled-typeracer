@@ -92,7 +92,7 @@ const Home: NextPage = () => {
             {status === "error" && (
               <div className={styles["error"]}>error fetching data</div>
             )}
-            {status === "success" && <Typeracer quote={data} />}
+            {status === "success" && <Typeracer />}
           </>
         )}
       </div>
