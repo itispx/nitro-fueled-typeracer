@@ -2,6 +2,11 @@ import create from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 export type GameState = {
+  startTime: Date | null;
+  endTime: Date | null;
+  startGame: () => void;
+  endGame: () => void;
+  resetTimer: () => void;
   typed: string;
   type: (key: string) => void;
   removeLastTyped: () => void;
@@ -21,6 +26,27 @@ export type GameState = {
 
 const useGameStore = create<GameState>()(
   immer((set, get) => ({
+    startTime: null,
+    endTime: null,
+    startGame() {
+      set((state) => {
+        console.log("GAME STARTED");
+        state.typed = "";
+        state.startTime = new Date();
+      });
+    },
+    endGame() {
+      set((state) => {
+        console.log("GAME ENDED");
+        state.endTime = new Date();
+      });
+    },
+    resetTimer() {
+      set((state) => {
+        state.startTime = null;
+        state.endTime = null;
+      });
+    },
     typed: "",
     type(key: string) {
       set((state) => {

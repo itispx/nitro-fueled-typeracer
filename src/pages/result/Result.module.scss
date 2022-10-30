@@ -11,17 +11,27 @@
 }
 
 .result-container {
-  display: flex;
-  flex-direction: column;
-  height: 300px;
+  height: fit-content;
   width: 750px;
   border-style: solid;
   border-width: 5px;
   border-radius: $border-radius;
   border-color: $bubble;
   background-color: transparent;
+}
 
-  span {
+.content-container {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+
+  .title {
+    font-size: 28px;
+    color: $light;
+    font-weight: bolder;
+  }
+
+  .info {
     font-size: 25px;
     color: $bubble;
     font-weight: bold;

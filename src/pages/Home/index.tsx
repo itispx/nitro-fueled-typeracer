@@ -27,6 +27,7 @@ const Home: NextPage = () => {
 
   function refreshQuote() {
     refetch();
+    gameStore.resetTimer();
     gameStore.cleanTyped();
     gameStore.nullifyRestart();
     gameStore.capsLockNullify();
@@ -35,13 +36,17 @@ const Home: NextPage = () => {
   useKeydown((e) => {
     // Can't use a switch statement here because switch statements use uses strict comparison (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch#description)
 
-    // console.log(e.key);
-
     if (e.key.length === 1) {
+      if (!gameStore.startTime) {
+        gameStore.startGame();
+      }
+
       // Key pressed, add to typed
       gameStore.type(e.key);
 
       if (gameStore.typed.length + 1 === data?.length) {
+        gameStore.endGame();
+
         router.push("/result");
       }
     } else if (e.key === "Backspace") {

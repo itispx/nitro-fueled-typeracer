@@ -4,30 +4,54 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "./Result.module.scss";
 
+import { useQueryClient } from "react-query";
+
 import useKeydown from "../../hooks/useKeydown";
 import useGameStore from "../../stores/useGameStore";
+
+import IQuote from "../../interfaces/quote";
 
 import Restart from "../../components/Restart";
 
 const Result: NextPage = () => {
   const router = useRouter();
 
+  const queryClient = useQueryClient();
+  const { content, author } = queryClient.getQueryData("quote") as IQuote;
+
   const gameStore = useGameStore();
 
-  const [wpm, setWpm] = useState("");
-  const [acc, setAcc] = useState("");
-  const [time, setTime] = useState("");
-  const [author, setAuthor] = useState("");
+  const [wpm] = useState(() => {
+    if (gameStore.startTime && gameStore.endTime) {
+      const minutes =
+        (gameStore.endTime.getTime() - gameStore.startTime.getTime()) / 1000 / 60;
+
+      return (content.length / 5 / minutes).toFixed(0);
+    }
+
+    return "Something went wrong";
+  });
+  const [acc] = useState("");
+  const [time] = useState(() => {
+    if (gameStore.startTime && gameStore.endTime) {
+      const seconds =
+        (gameStore.endTime.getTime() - gameStore.startTime.getTime()) / 1000;
+
+      return seconds.toFixed(0);
+    }
+
+    return 0;
+  });
 
   useEffect(() => {
     if (gameStore.typed.length === 0) {
+      gameStore.resetTimer();
+
       router.push("/");
     }
   }, [gameStore, router]);
 
   useKeydown((e) => {
-    console.log(e.key);
-
     if (e.key === "Tab") {
       e.preventDefault();
 
@@ -50,10 +74,16 @@ const Result: NextPage = () => {
   return (
     <div className={styles["result-wrapper"]}>
       <div className={styles["result-container"]}>
-        <span>wpm: {wpm}</span>
-        <span>acc: {acc}</span>
-        <span>time: {time}</span>
-        <span>author: {author}</span>
+        <div className={styles["content-container"]}>
+          <span className={styles["title"]}>wpm</span>
+          <span className={styles["info"]}>{wpm}</span>
+          <span className={styles["title"]}>acc</span>
+          <span className={styles["info"]}>{acc}</span>
+          <span className={styles["title"]}>time</span>
+          <span className={styles["info"]}>{time}s</span>
+          <span className={styles["title"]}>author</span>
+          <span className={styles["info"]}>{author}</span>
+        </div>
       </div>
       <Restart focused={gameStore.isRestartFocused} />
     </div>
