@@ -22,7 +22,7 @@ const Result: NextPage = () => {
   const gameStore = useGameStore();
 
   const [wpm] = useState(() => {
-    if (gameStore.startTime && gameStore.endTime) {
+    if (gameStore.startTime && gameStore.endTime && quote) {
       const minutes =
         (gameStore.endTime.getTime() - gameStore.startTime.getTime()) / 1000 / 60;
 
@@ -33,7 +33,11 @@ const Result: NextPage = () => {
   });
 
   const [acc] = useState(() => {
-    return 100 - (100 * gameStore.mistakes.length) / (quote.content.length ?? 0);
+    if (quote) {
+      return 100 - (100 * gameStore.mistakes.length) / quote.content.length;
+    }
+
+    return 0;
   });
 
   const [time] = useState(() => {
