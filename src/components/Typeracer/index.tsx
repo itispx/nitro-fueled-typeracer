@@ -11,18 +11,20 @@ import Restart from "../../components/Restart";
 import IQuote from "../../interfaces/quote";
 
 const Typeracer: React.FC = () => {
+  const queryClient = useQueryClient();
+  const quote = queryClient.getQueryData("quote") as IQuote;
+
   const typed = useGameStore((state) => state.typed);
   const isGameFocused = useGameStore((state) => state.isGameFocused);
   const isCapsLockOn = useGameStore((state) => state.isCapsLockOn);
   const isRestartFocused = useGameStore((state) => state.isRestartFocused);
 
-  const queryClient = useQueryClient();
-
-  const quote = queryClient.getQueryData("quote") as IQuote;
-
   return (
-    <>
+    <div className={styles["typeracer-wrapper"]}>
       <CapsLockWarning active={isCapsLockOn} />
+      <span className={styles["word-count"]}>
+        {typed.split(" ").length - 1} / {quote.content.split(" ").length}
+      </span>
       <div
         className={`${styles["typeracer-container"]} ${
           isGameFocused ? styles["focus-in"] : styles["focus-out"]
@@ -55,7 +57,7 @@ const Typeracer: React.FC = () => {
         </p>
       </div>
       <Restart focused={isRestartFocused} />
-    </>
+    </div>
   );
 };
 

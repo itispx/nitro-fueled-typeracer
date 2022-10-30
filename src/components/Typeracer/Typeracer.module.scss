@@ -2,6 +2,11 @@
 @import "../../styles/colors";
 @import "../../styles/animations";
 
+.typeracer-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .typeracer-container {
   margin: 0 50px 0;
   padding: 30px 45px;
@@ -44,4 +49,13 @@
     background-color: $color-incorrect;
     opacity: 0.75;
   }
+}
+
+.word-count {
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: fit-content;
+  margin: 10px 75px;
+  font-size: 1.5rem;
+  color: $accent;
 }
