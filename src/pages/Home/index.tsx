@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 
+import { useRouter } from "next/router";
+
 import { useEffect } from "react";
 import styles from "./Home.module.scss";
 
@@ -15,6 +17,8 @@ import useKeydown from "../../hooks/useKeydown";
 import Typeracer from "../../components/Typeracer";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   const gameStore = useGameStore();
 
   const { data, status, refetch, isFetching } = useQuery(["quote"], getQuoteQuery, {
@@ -36,6 +40,10 @@ const Home: NextPage = () => {
     if (e.key.length === 1) {
       // Key pressed, add to typed
       gameStore.type(e.key);
+
+      if (gameStore.typed.length + 1 === data?.length) {
+        router.push("/result");
+      }
     } else if (e.key === "Backspace") {
       e.preventDefault();
 
