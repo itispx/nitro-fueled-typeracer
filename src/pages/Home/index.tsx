@@ -41,6 +41,10 @@ const Home: NextPage = () => {
         gameStore.startGame();
       }
 
+      if (data?.content[gameStore.typed.length] !== e.key) {
+        gameStore.makeMistake(e.key);
+      }
+
       // Key pressed, add to typed
       gameStore.type(e.key);
 

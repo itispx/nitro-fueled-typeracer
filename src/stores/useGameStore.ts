@@ -7,6 +7,8 @@ export type GameState = {
   startGame: () => void;
   endGame: () => void;
   resetTimer: () => void;
+  mistakes: string;
+  makeMistake: (key: string) => void;
   typed: string;
   type: (key: string) => void;
   removeLastTyped: () => void;
@@ -25,19 +27,17 @@ export type GameState = {
 };
 
 const useGameStore = create<GameState>()(
-  immer((set, get) => ({
+  immer((set) => ({
     startTime: null,
     endTime: null,
     startGame() {
       set((state) => {
-        console.log("GAME STARTED");
         state.typed = "";
         state.startTime = new Date();
       });
     },
     endGame() {
       set((state) => {
-        console.log("GAME ENDED");
         state.endTime = new Date();
       });
     },
@@ -47,17 +47,23 @@ const useGameStore = create<GameState>()(
         state.endTime = null;
       });
     },
+    mistakes: "",
+    makeMistake(key: string) {
+      set((state) => {
+        state.mistakes = state.mistakes.concat(key);
+      });
+    },
     typed: "",
     type(key: string) {
       set((state) => {
-        if (get().isGameFocused) {
-          state.typed = get().typed.concat(key);
+        if (state.isGameFocused) {
+          state.typed = state.typed.concat(key);
         }
       });
     },
     removeLastTyped() {
       set((state) => {
-        state.typed = get().typed.slice(0, -1);
+        state.typed = state.typed.slice(0, -1);
       });
     },
     cleanTyped() {

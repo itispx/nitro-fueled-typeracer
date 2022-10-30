@@ -31,7 +31,11 @@ const Result: NextPage = () => {
 
     return "Something went wrong";
   });
-  const [acc] = useState("");
+
+  const [acc] = useState(() => {
+    return 100 - (100 * gameStore.mistakes.length) / quote.content.length;
+  });
+
   const [time] = useState(() => {
     if (gameStore.startTime && gameStore.endTime) {
       const seconds =
@@ -78,7 +82,7 @@ const Result: NextPage = () => {
           <span className={styles["title"]}>wpm</span>
           <span className={styles["info"]}>{wpm}</span>
           <span className={styles["title"]}>acc</span>
-          <span className={styles["info"]}>{acc}</span>
+          <span className={styles["info"]}>{acc.toFixed(0)}%</span>
           <span className={styles["title"]}>time</span>
           <span className={styles["info"]}>{time}s</span>
           <span className={styles["title"]}>author</span>
