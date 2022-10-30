@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import styles from "./Result.module.scss";
 
 import { useQueryClient } from "react-query";
@@ -17,7 +17,7 @@ const Result: NextPage = () => {
   const router = useRouter();
 
   const queryClient = useQueryClient();
-  const { content, author } = queryClient.getQueryData("quote") as IQuote;
+  const quote = queryClient.getQueryData("quote") as IQuote;
 
   const gameStore = useGameStore();
 
@@ -26,7 +26,7 @@ const Result: NextPage = () => {
       const minutes =
         (gameStore.endTime.getTime() - gameStore.startTime.getTime()) / 1000 / 60;
 
-      return (content.length / 5 / minutes).toFixed(0);
+      return (quote.content.length / 5 / minutes).toFixed(0);
     }
 
     return "Something went wrong";
@@ -43,13 +43,13 @@ const Result: NextPage = () => {
     return 0;
   });
 
-  useEffect(() => {
-    if (gameStore.typed.length === 0) {
+  useLayoutEffect(() => {
+    if (gameStore.typed.length === 0 || !quote) {
       gameStore.resetTimer();
 
       router.push("/");
     }
-  }, [gameStore, router]);
+  }, [gameStore, router, quote]);
 
   useKeydown((e) => {
     if (e.key === "Tab") {
@@ -82,7 +82,7 @@ const Result: NextPage = () => {
           <span className={styles["title"]}>time</span>
           <span className={styles["info"]}>{time}s</span>
           <span className={styles["title"]}>author</span>
-          <span className={styles["info"]}>{author}</span>
+          <span className={styles["info"]}>{quote?.author}</span>
         </div>
       </div>
       <Restart focused={gameStore.isRestartFocused} />

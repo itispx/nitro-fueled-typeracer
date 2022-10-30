@@ -12,14 +12,14 @@ import IQuote from "../../interfaces/quote";
 
 const Typeracer: React.FC = () => {
   const queryClient = useQueryClient();
-  const { content } = queryClient.getQueryData("quote") as IQuote;
+  const queryQuote = queryClient.getQueryData("quote") as IQuote;
 
   const typed = useGameStore((state) => state.typed);
   const isGameFocused = useGameStore((state) => state.isGameFocused);
   const isCapsLockOn = useGameStore((state) => state.isCapsLockOn);
   const isRestartFocused = useGameStore((state) => state.isRestartFocused);
 
-  const quote = content.replace("—", "-");
+  const quote = queryQuote?.content.replace("—", "-");
 
   return (
     <div className={styles["typeracer-wrapper"]}>
