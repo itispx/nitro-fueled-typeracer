@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Result.module.scss";
 
 import useKeydown from "../../hooks/useKeydown";
@@ -13,6 +13,11 @@ const Result: NextPage = () => {
   const router = useRouter();
 
   const gameStore = useGameStore();
+
+  const [wpm, setWpm] = useState("");
+  const [acc, setAcc] = useState("");
+  const [time, setTime] = useState("");
+  const [author, setAuthor] = useState("");
 
   useEffect(() => {
     if (gameStore.typed.length === 0) {
@@ -43,9 +48,12 @@ const Result: NextPage = () => {
   }, []);
 
   return (
-    <div>
-      <div className={styles["result-wrapper"]}>
-        <div className={styles["result-container"]}></div>
+    <div className={styles["result-wrapper"]}>
+      <div className={styles["result-container"]}>
+        <span>wpm: {wpm}</span>
+        <span>acc: {acc}</span>
+        <span>time: {time}</span>
+        <span>author: {author}</span>
       </div>
       <Restart focused={gameStore.isRestartFocused} />
     </div>

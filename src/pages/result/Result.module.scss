@@ -3,7 +3,7 @@
 
 .result-wrapper {
   display: flex;
-  flex: 1;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -11,6 +11,8 @@
 }
 
 .result-container {
+  display: flex;
+  flex-direction: column;
   height: 300px;
   width: 750px;
   border-style: solid;
@@ -18,4 +20,10 @@
   border-radius: $border-radius;
   border-color: $bubble;
   background-color: transparent;
+
+  span {
+    font-size: 25px;
+    color: $bubble;
+    font-weight: bold;
+  }
 }
