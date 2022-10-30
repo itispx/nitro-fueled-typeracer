@@ -33,7 +33,7 @@ const Result: NextPage = () => {
   });
 
   const [acc] = useState(() => {
-    return 100 - (100 * gameStore.mistakes.length) / quote.content.length;
+    return 100 - (100 * gameStore.mistakes.length) / (quote.content.length ?? 0);
   });
 
   const [time] = useState(() => {
