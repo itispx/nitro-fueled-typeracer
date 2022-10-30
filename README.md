@@ -16,3 +16,5 @@
 </tr>
 
 </table>
+
+# [Play Game](https://nitro-fueled-typeracer.vercel.app/)
