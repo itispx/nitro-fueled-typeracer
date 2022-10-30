@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Typeracer.module.scss";
 
+import useGameStore from "../../stores/useGameStore";
+
 import CapsLockWarning from "../../components/CapsLockWarning";
 import Restart from "../../components/Restart";
 
@@ -8,19 +10,14 @@ import IQuote from "../../interfaces/quote";
 
 interface Props {
   quote: IQuote;
-  typed: string;
-  isGameFocused: boolean;
-  isCapsLockOn: boolean | null;
-  isRestartFocused: boolean | null;
 }
 
-const Typeracer: React.FC<Props> = ({
-  quote,
-  typed,
-  isGameFocused,
-  isCapsLockOn,
-  isRestartFocused,
-}) => {
+const Typeracer: React.FC<Props> = ({ quote }) => {
+  const typed = useGameStore((state) => state.typed);
+  const isGameFocused = useGameStore((state) => state.isGameFocused);
+  const isCapsLockOn = useGameStore((state) => state.isCapsLockOn);
+  const isRestartFocused = useGameStore((state) => state.isRestartFocused);
+
   return (
     <>
       <CapsLockWarning active={isCapsLockOn} />
@@ -54,7 +51,6 @@ const Typeracer: React.FC<Props> = ({
             );
           })}
         </p>
-        {/* <div className={styles["backdrop"]}></div> */}
       </div>
       <Restart focused={isRestartFocused} />
     </>

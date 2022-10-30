@@ -1,10 +1,12 @@
 import type { NextPage } from "next";
 
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./Home.module.scss";
 
 import { useQuery } from "react-query";
 import { getQuoteQuery } from "../../queries/api/quotesQueries";
+
+import useGameStore from "../../stores/useGameStore";
 
 import { InfinitySpin } from "react-loader-spinner";
 
@@ -13,21 +15,18 @@ import useKeydown from "../../hooks/useKeydown";
 import Typeracer from "../../components/Typeracer";
 
 const Home: NextPage = () => {
+  const gameStore = useGameStore();
+
   const { data, status, refetch, isFetching } = useQuery(["quote"], getQuoteQuery, {
     refetchOnWindowFocus: false,
   });
 
   function refreshQuote() {
     refetch();
-    setTyped("");
-    setIsRestartFocused(null);
-    setIsCapsLockOn(null);
+    gameStore.cleanTyped();
+    gameStore.nullifyRestart();
+    gameStore.capsLockNullify();
   }
-
-  const [typed, setTyped] = useState("");
-  const [isGameFocused, setIsGameFocused] = useState(true);
-  const [isCapsLockOn, setIsCapsLockOn] = useState<boolean | null>(null);
-  const [isRestartFocused, setIsRestartFocused] = useState<boolean | null>(null);
 
   useKeydown((e) => {
     // Can't use a switch statement here because switch statements use uses strict comparison (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch#description)
@@ -36,31 +35,41 @@ const Home: NextPage = () => {
 
     if (e.key.length === 1) {
       // Key pressed, add to typed
-      isGameFocused && setTyped((prev) => prev.concat(e.key));
+      gameStore.type(e.key);
     } else if (e.key === "Backspace") {
       e.preventDefault();
 
       // Backspace pressed, remove the last char from typed
-      isGameFocused && setTyped((prev) => prev.slice(0, -1));
+      gameStore.removeLastTyped();
     } else if (e.key === "Tab") {
       e.preventDefault();
 
       // Highlight restart
-      setIsRestartFocused((prev) => !prev);
+      if (gameStore.isRestartFocused) {
+        gameStore.unfocusRestart();
+      } else {
+        gameStore.focusRestart();
+      }
     } else if (e.key === "Enter") {
-      if (isRestartFocused) refreshQuote();
+      if (gameStore.isRestartFocused) {
+        refreshQuote();
+      }
     } else if (e.key === "CapsLock") {
       e.preventDefault();
 
       // Show caps lock warning
-      setIsCapsLockOn((prev) => !prev);
+      gameStore.isCapsLockOn ? gameStore.capsLockOff() : gameStore.capsLockOn();
     }
   }, []);
 
   // Take focus out of game if restart is focused
   useEffect(() => {
-    setIsGameFocused(!isRestartFocused);
-  }, [isRestartFocused]);
+    if (gameStore.isRestartFocused) {
+      gameStore.unfocusGame();
+    } else {
+      gameStore.focusGame();
+    }
+  }, [gameStore]);
 
   return (
     <>
@@ -75,15 +84,7 @@ const Home: NextPage = () => {
             {status === "error" && (
               <div className={styles["error"]}>error fetching data</div>
             )}
-            {status === "success" && (
-              <Typeracer
-                quote={data}
-                typed={typed}
-                isGameFocused={isGameFocused}
-                isCapsLockOn={isCapsLockOn}
-                isRestartFocused={isRestartFocused}
-              />
-            )}
+            {status === "success" && <Typeracer quote={data} />}
           </>
         )}
       </div>
