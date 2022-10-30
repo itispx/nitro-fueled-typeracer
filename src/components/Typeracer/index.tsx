@@ -12,18 +12,20 @@ import IQuote from "../../interfaces/quote";
 
 const Typeracer: React.FC = () => {
   const queryClient = useQueryClient();
-  const quote = queryClient.getQueryData("quote") as IQuote;
+  const { content } = queryClient.getQueryData("quote") as IQuote;
 
   const typed = useGameStore((state) => state.typed);
   const isGameFocused = useGameStore((state) => state.isGameFocused);
   const isCapsLockOn = useGameStore((state) => state.isCapsLockOn);
   const isRestartFocused = useGameStore((state) => state.isRestartFocused);
 
+  const quote = content.replace("—", "-");
+
   return (
     <div className={styles["typeracer-wrapper"]}>
       <CapsLockWarning active={isCapsLockOn} />
       <span className={styles["word-count"]}>
-        {typed.split(" ").length - 1} / {quote.content.split(" ").length}
+        {typed.split(" ").length - 1} / {quote.split(" ").length}
       </span>
       <div
         className={`${styles["typeracer-container"]} ${
@@ -31,7 +33,7 @@ const Typeracer: React.FC = () => {
         }`}
       >
         <p className={styles["quote"]}>
-          {quote.content.split("").map((k, index) => {
+          {quote.split("").map((k, index) => {
             let className = "";
 
             if (!typed[index]) {
