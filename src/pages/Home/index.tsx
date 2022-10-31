@@ -23,6 +23,12 @@ const Home: NextPage = () => {
 
   const { data, status, refetch, isFetching } = useQuery(["quote"], getQuoteQuery, {
     refetchOnWindowFocus: false,
+    select: (data) => {
+      return {
+        ...data,
+        content: data.content.replace("—", "-"),
+      };
+    },
   });
 
   function refreshQuote() {
