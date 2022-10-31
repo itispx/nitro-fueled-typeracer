@@ -33,6 +33,7 @@ const useGameStore = create<GameState>()(
     startGame() {
       set((state) => {
         state.typed = "";
+        state.mistakes = "";
         state.startTime = new Date();
       });
     },
