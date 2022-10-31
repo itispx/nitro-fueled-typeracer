@@ -1,0 +1,14 @@
+@import "../../../styles/colors";
+
+.correct {
+  color: $light;
+}
+
+.incorrect {
+  color: $color-incorrect;
+}
+
+.incorrect-empty {
+  background-color: $color-incorrect;
+  opacity: 0.75;
+}

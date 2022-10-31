@@ -7,6 +7,7 @@ import useGameStore from "../../stores/useGameStore";
 
 import CapsLockWarning from "../../components/CapsLockWarning";
 import Restart from "../../components/Restart";
+import Key from "./Key";
 
 import IQuote from "../../interfaces/quote";
 
@@ -34,26 +35,12 @@ const Typeracer: React.FC = () => {
       >
         <p className={styles["quote"]}>
           {quote.split("").map((k, index) => {
-            let className = "";
-
-            if (!typed[index]) {
-            } else if (typed[index] === k) {
-              className = "correct";
-            } else if (typed[index] !== k) {
-              className = "incorrect";
-            }
-
             return (
-              <span
+              <Key
                 key={index}
-                className={
-                  k === " " && className === "incorrect"
-                    ? styles["incorrect-empty"]
-                    : styles[className]
-                }
-              >
-                {k}
-              </span>
+                k={k}
+                correct={!typed[index] ? null : typed[index] === k}
+              />
             );
           })}
         </p>
